@@ -1,10 +1,9 @@
 package OOP2;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 /**
- * Die Klasse {@code RectangleShape} implementiert das {@link ShapeDrawer}-Interface und stellt eine rechteckige geometrische Form dar.
- * Sie definiert die Position des linken oberen Eckpunkts des Rechtecks sowie seine Breite und Höhe.
+ * Die Klasse {@code RectangleShape} repräsentiert ein Rechteck und implementiert das {@link ShapeDrawer}-Interface.
  */
 public class RectangleShape implements ShapeDrawer {
     private int x;
@@ -13,10 +12,10 @@ public class RectangleShape implements ShapeDrawer {
     private int height;
 
     /**
-     * Konstruktor für die {@code RectangleShape}-Klasse. Erzeugt ein Rechteck mit den angegebenen Koordinaten und Größen.
+     * Konstruktor für die RectangleShape-Klasse.
      *
-     * @param x      Die x-Koordinate des linken oberen Eckpunkts des Rechtecks.
-     * @param y      Die y-Koordinate des linken oberen Eckpunkts des Rechtecks.
+     * @param x      Die x-Koordinate des Ursprungspunkts des Rechtecks.
+     * @param y      Die y-Koordinate des Ursprungspunkts des Rechtecks.
      * @param width  Die Breite des Rechtecks.
      * @param height Die Höhe des Rechtecks.
      */
@@ -27,14 +26,19 @@ public class RectangleShape implements ShapeDrawer {
         this.height = height;
     }
 
-    /**
-     * Zeichnet das Rechteck mit den festgelegten Koordinaten und Größen auf dem gegebenen Graphics-Objekt.
-     *
-     * @param g Das {@link Graphics}-Objekt zum Zeichnen des Rechtecks.
-     */
     @Override
     public void draw(Graphics g) {
-        // Zeichnen Sie das Rechteck mit den festgelegten Koordinaten und Größen
         g.drawRect(x, y, width, height);
+    }
+
+    @Override
+    public boolean contains(Point point) {
+        return (point.x >= x && point.x <= x + width && point.y >= y && point.y <= y + height);
+    }
+
+    @Override
+    public void move(int dx, int dy) {
+        x += dx;
+        y += dy;
     }
 }

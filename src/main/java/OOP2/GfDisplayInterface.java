@@ -1,6 +1,6 @@
 package OOP2;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -9,10 +9,10 @@ import java.util.List;
  */
 public interface GfDisplayInterface {
     /**
-     * Zeichnet eine Liste von geometrischen Formen mit den angegebenen ShapeDrawer-Objekten auf dem gegebenen Graphics-Objekt.
+     * Zeichnet eine Liste von geometrischen Formen mit den angegebenen Parametern.
      *
      * @param shapes Die Liste von Objekten, die das {@link ShapeDrawer}-Interface implementieren und für das Zeichnen der Formen verwendet werden.
-     * @param g      Das {@link Graphics}-Objekt zum Zeichnen der Formen.
+     * @param g      Das {@link Graphics}-Objekt zum Zeichnen.
      */
     void drawShapes(List<ShapeDrawer> shapes, Graphics g);
 }

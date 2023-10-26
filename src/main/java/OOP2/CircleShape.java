@@ -1,10 +1,9 @@
 package OOP2;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 /**
- * Die Klasse {@code CircleShape} stellt einen Kreis dar und implementiert das {@link ShapeDrawer}-Interface.
- * Sie definiert die Methode zum Zeichnen eines Kreises auf einer grafischen Oberfläche.
+ * Die Klasse {@code CircleShape} repräsentiert einen Kreis und implementiert das {@link ShapeDrawer}-Interface.
  */
 public class CircleShape implements ShapeDrawer {
     private int x;
@@ -13,12 +12,12 @@ public class CircleShape implements ShapeDrawer {
     private int height;
 
     /**
-     * Konstruktor für die CircleShape-Klasse. Erzeugt einen Kreis mit den gegebenen Koordinaten und Größen.
+     * Konstruktor für die CircleShape-Klasse.
      *
      * @param x      Die x-Koordinate des Mittelpunkts des Kreises.
      * @param y      Die y-Koordinate des Mittelpunkts des Kreises.
-     * @param width  Die Breite des Kreises.
-     * @param height Die Höhe des Kreises.
+     * @param width  Die Breite des Kreises (Durchmesser).
+     * @param height Die Höhe des Kreises (Durchmesser).
      */
     public CircleShape(int x, int y, int width, int height) {
         this.x = x;
@@ -27,14 +26,24 @@ public class CircleShape implements ShapeDrawer {
         this.height = height;
     }
 
-    /**
-     * Zeichnet den Kreis auf dem gegebenen Graphics-Objekt.
-     *
-     * @param g Das {@link Graphics}-Objekt zum Zeichnen des Kreises.
-     */
     @Override
     public void draw(Graphics g) {
-        // Zeichnen Sie den Kreis mit den festgelegten Koordinaten und Größen
         g.drawOval(x, y, width, height);
+    }
+
+    @Override
+    public boolean contains(Point point) {
+        int radius = width / 2;
+        int centerX = x + radius;
+        int centerY = y + radius;
+        int dx = point.x - centerX;
+        int dy = point.y - centerY;
+        return dx * dx + dy * dy <= radius * radius;
+    }
+
+    @Override
+    public void move(int dx, int dy) {
+        x += dx;
+        y += dy;
     }
 }
