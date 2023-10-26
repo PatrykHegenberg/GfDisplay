@@ -5,7 +5,7 @@ import java.awt.Graphics;
  * Das Interface {@code Shape} definiert die Methode zum Zeichnen verschiedener geometrischer Formen.
  * Klassen, die dieses Interface implementieren, können verwendet werden, um spezifische Formen zu repräsentieren.
  */
-public interface Shape {
+public interface Shape extends ShapeDrawer{
       /**
      * Zeichnet die geometrische Form mit den angegebenen Parametern.
      *

@@ -5,10 +5,6 @@
  *
  * Beispiel zur Verwendung:
  * <pre>
- *     // Erstellung eines JFrame-Fensters
- *     JFrame frame = new JFrame("GfDisplay Test");
- *     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
- *     frame.setSize(400, 400);
  *
  *     // Erstellung einer Instanz von GfDisplay
  *     GfDisplay gfDisplay = new GfDisplay();
@@ -16,11 +12,9 @@
  *     // Beispiel: Zeichnen eines Rechtecks mit GfDisplay
  *     gfDisplay.drawShape(new RectangleShape(), 50, 50, 100, 50);
  *
- *     // Fügen Sie GfDisplay zum JFrame-Fenster hinzu
- *     frame.add(gfDisplay);
+ *     // Initialisieren eines JFrame-Fensters
+ *     GfDisplay.initDisplay();
  *
- *     // Das JFrame-Fenster sichtbar machen
- *     frame.setVisible(true);
  * </pre>
  *
  * @see JPanel
@@ -43,6 +37,14 @@ public class GfDisplay extends JPanel implements GfDisplayInterface {
     private int height;
     private ShapeDrawer shapeDrawer;
 
+    public GfDisplay() {
+        JFrame frame = new JFrame("GfDisplay Test");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 400);
+        frame.add(this);
+        frame.setVisible(true);
+    }
+
     @Override
     public void drawShape(ShapeDrawer shapeDrawer, int x, int y, int width, int height) {
         setX(x);
@@ -53,6 +55,10 @@ public class GfDisplay extends JPanel implements GfDisplayInterface {
         repaint();
     }
 
+    public void addShape(ShapeDrawer shapeDrawer, int x, int y, int width, int height) {
+        drawShape(shapeDrawer, x, y, width, height);
+        repaint();
+    }
     public void setX(int x) {
         this.x = x;
     }
