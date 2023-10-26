@@ -1,17 +1,18 @@
 package OOP2;
+
+import java.awt.Graphics;
+import java.util.List;
+
 /**
  * Das Interface {@code GfDisplayInterface} definiert Methoden zum Zeichnen verschiedener geometrischer Formen
  * auf einer grafischen Oberfläche.
  */
 public interface GfDisplayInterface {
-      /**
-     * Zeichnet eine geometrische Form mit den angegebenen Parametern.
+    /**
+     * Zeichnet eine Liste von geometrischen Formen mit den angegebenen ShapeDrawer-Objekten auf dem gegebenen Graphics-Objekt.
      *
-     * @param shapeDrawer Das Objekt, das das {@link ShapeDrawer}-Interface implementiert und für das Zeichnen der Form verwendet wird.
-     * @param x           Die x-Koordinate des Ursprungspunkts der Form.
-     * @param y           Die y-Koordinate des Ursprungspunkts der Form.
-     * @param width       Die Breite der Form.
-     * @param height      Die Höhe der Form.
+     * @param shapes Die Liste von Objekten, die das {@link ShapeDrawer}-Interface implementieren und für das Zeichnen der Formen verwendet werden.
+     * @param g      Das {@link Graphics}-Objekt zum Zeichnen der Formen.
      */
-    void drawShape(ShapeDrawer shapeDrawer, int x, int y, int width, int height);
+    void drawShapes(List<ShapeDrawer> shapes, Graphics g);
 }

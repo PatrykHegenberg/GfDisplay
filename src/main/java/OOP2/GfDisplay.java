@@ -1,20 +1,23 @@
+package OOP2;
+
+import java.awt.*;
+import java.util.List;
+import javax.swing.*;
+
 /**
  * Die Klasse {@code GfDisplay} stellt eine grafische Darstellung für verschiedene geometrische Formen bereit.
  * Sie erbt von {@link JPanel} und implementiert das {@link GfDisplayInterface} Interface.
- * Diese Klasse ermöglicht es, verschiedene Formen wie Rechtecke, Kreise, Dreiecke und Ellipsen zu zeichnen.
+ * Diese Klasse ermöglicht es, eine Liste von {@link ShapeDrawer}-Objekten zu zeichnen.
  *
  * Beispiel zur Verwendung:
  * <pre>
+ *     // Erstellen Sie eine Liste von ShapeDrawers
+ *     List<ShapeDrawer> shapes = new ArrayList<>();
+ *     shapes.add(new RectangleShape(50, 50, 100, 50)); // Rechteck mit Position (50, 50), Breite 100 und Höhe 50
+ *     shapes.add(new CircleShape(150, 50, 60)); // Kreis mit Mittelpunkt (150, 50) und Radius 60
  *
- *     // Erstellung einer Instanz von GfDisplay
- *     GfDisplay gfDisplay = new GfDisplay();
- *
- *     // Beispiel: Zeichnen eines Rechtecks mit GfDisplay
- *     gfDisplay.drawShape(new RectangleShape(), 50, 50, 100, 50);
- *
- *     // Initialisieren eines JFrame-Fensters
- *     GfDisplay.initDisplay();
- *
+ *     // Initialisieren Sie das GfDisplay mit der Liste von ShapeDrawers
+ *     GfDisplay.initDisplay(shapes);
  * </pre>
  *
  * @see JPanel
@@ -25,65 +28,53 @@
  * @see TriangleShape
  * @see EllipseShape
  */
-package OOP2;
-
-import java.awt.*;
-import javax.swing.*;
-
 public class GfDisplay extends JPanel implements GfDisplayInterface {
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-    private ShapeDrawer shapeDrawer;
+    private List<ShapeDrawer> shapeDrawers;
 
-    public GfDisplay() {
-        JFrame frame = new JFrame("GfDisplay Test");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-        frame.add(this);
-        frame.setVisible(true);
+    /**
+     * Konstruktor für die GfDisplay-Klasse.
+     *
+     * @param shapeDrawers Die Liste von {@link ShapeDrawer}-Objekten, die gezeichnet werden sollen.
+     */
+    public GfDisplay(List<ShapeDrawer> shapeDrawers) {
+        this.shapeDrawers = shapeDrawers;
     }
 
-    @Override
-    public void drawShape(ShapeDrawer shapeDrawer, int x, int y, int width, int height) {
-        setX(x);
-        setY(y);
-        setWidth(width);
-        setHeight(height);
-        setShapeDrawer(shapeDrawer);
-        repaint();
-    }
-
-    public void addShape(ShapeDrawer shapeDrawer, int x, int y, int width, int height) {
-        drawShape(shapeDrawer, x, y, width, height);
-        repaint();
-    }
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setShapeDrawer(ShapeDrawer shapeDrawer) {
-        this.shapeDrawer = shapeDrawer;
-    }
-
+    /**
+     * Zeichnet die Formen aus der übergebenen Liste von {@link ShapeDrawer}-Objekten.
+     *
+     * @param g Das {@link Graphics}-Objekt zum Zeichnen der Formen.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (shapeDrawer != null) {
-            shapeDrawer.draw(g, x, y, width, height);
+        drawShapes(shapeDrawers, g);
+    }
+
+    /**
+     * Zeichnet die Formen aus der übergebenen Liste von {@link ShapeDrawer}-Objekten auf dem gegebenen Graphics-Objekt.
+     *
+     * @param shapes Die Liste von {@link ShapeDrawer}-Objekten, die gezeichnet werden sollen.
+     * @param g Das {@link Graphics}-Objekt zum Zeichnen der Formen.
+     */
+    @Override
+    public void drawShapes(List<ShapeDrawer> shapes, Graphics g) {
+        for (ShapeDrawer shapeDrawer : shapes) {
+            shapeDrawer.draw(g);
         }
+    }
+
+    /**
+     * Initialisiert ein JFrame-Fenster und zeigt die gezeichneten Formen an.
+     *
+     * @param shapeDrawers Die Liste von {@link ShapeDrawer}-Objekten, die gezeichnet werden sollen.
+     */
+    public static void initDisplay(List<ShapeDrawer> shapeDrawers) {
+        JFrame frame = new JFrame("GfDisplay Test");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 400);
+        GfDisplay gfDisplay = new GfDisplay(shapeDrawers);
+        frame.add(gfDisplay);
+        frame.setVisible(true);
     }
 }
